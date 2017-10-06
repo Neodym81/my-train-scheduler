@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_99a091ad2988bb04ef96f5e9aa2668a52874b6f2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/1288cc39554f612118d1e169441b951a54b6e712/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_091812192305b75d77fb9687292752aaf35e8cc9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/8f9a3dab66c40c11da60903a08c1813fee35bcca/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_24e4d2cc5dda75bbf80238b50e0b1be73b6e3f0d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/35fdd0451855e21b50513f316b6eab58d7f2667c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b2c53fbb33244b9f220cbd96d71a4f74ace90bc1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/63b0fc504b12cbc777c10d632cc9ec35079deee8/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_454abcc4b1d4e42a8ddae847baf9e44e758e4ad1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/1f84fa787f5eafb35f3850747cf060bdbd95229a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_74cac1e10f01e95e10be4214ad2fc21a4580e9b3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/028538f196d669f3c23be975cc6e14e54165affd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_38e3225adf4d1fcfa30702db9a6e068cd123d8bc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.2_80c4017cbf61d58e599674a181ee38d0fdae7009/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/bcecf56875febdc4f796916b22545c89748f7b05/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_774b56c068d0d12a153a680f970ac3b890aa1717/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/a0670bf7670a1a27ac75a79cdca8248f65f7ceb7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f97b04128fbf59385547c20c32a542f9086fc7e4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/26.0.0-alpha1/support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-26.0.0-alpha1_18289e978d5396d3fedc4e7637c4d319b4bfcfd6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/7e93d2d3c3d02c3c8b4d80a9737de13724dd9d9d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7743743f5a90d4b453686556130ef26f4430c263/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/.android/build-cache/91546de5187f0b2d9960fc0be0dcf37ae8f83868/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1dc40e7d7b6f6fa3081270f2364137f74c0f0002/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9c46e53ef828d5921a18d42f68c803317b4505b1">
+        <dex dex="/home/bjoern/AndroidStudioProjects/Mytrainscheduler/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_86ab11639c4e8ffa5eda8dfc8604fc72eeb156e8/classes.dex" />
+    </item>
+
+</items>
