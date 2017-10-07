@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -153,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 Log.e("ahaneu",test);
+
+                return test;
             }catch(Exception e)
             {
                 Log.v("ecp",e.toString());
@@ -189,9 +192,24 @@ public class MainActivity extends AppCompatActivity {
                 // Code here executes on main thread after user presses button
                 final TextView label = (TextView) findViewById(R.id.label);
                 label.setText("Klappt");
-                new makedbrequest().execute("");
-                new requesttimetable().execute("");
+                String Station = null;
+                try {
+                    Station = new makedbrequest().execute("").get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                String res= null;
+                try {
+                    res = new requesttimetable().execute(Station).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
                 Log.v("aha", "wirkloch1");
+                Log.v("final",res);
             }
         });
 
