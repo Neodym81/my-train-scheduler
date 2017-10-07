@@ -3,6 +3,7 @@ package com.example.bjoern.mytrainscheduler;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,10 @@ import java.io.StringReader;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.xpath.XPath;
@@ -93,11 +98,10 @@ public class MainActivity extends AppCompatActivity {
         {
             java.util.List<java.util.Map.Entry<String,Zuglauf>> pairList= new java.util.ArrayList<>();
             try {
-                Log.v("aha", "parse1");
                 XPathFactory factory = XPathFactory.newInstance();
-                Log.v("aha", "parse2");
+
                 XPath xPath = factory.newXPath();
-                Log.v("aha", "parse3");
+                ;
                 NodeList shows = (NodeList) xPath.evaluate("/timetable/s", new InputSource(new StringReader(xml)), XPathConstants.NODESET);
                 Log.v("aha", "parse4");
                 for (int i = 0; i < shows.getLength(); i++) {
@@ -152,26 +156,17 @@ for(int j=0; j < listzug.getLength(); j++)
         @Override
         protected String doInBackground(String[] params) {
             // do above Server call here
-            Log.v("aha", "wirkloch");
 
             try {
-                Log.v("aha", "wirkloch10");
-              //  URL url = new URL("https://api.deutschebahn.com/timetables/v1/station/Montabaur");
                 URL url = new URL("https://api.deutschebahn.com/timetables/v1/station/"+params[0]);
-                Log.v("aha", "wirkloch11");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("Authorization", "Bearer 9c3f51196a91fe8c98fb8536f3733c4c");
                 urlConnection.setRequestProperty("Accept", "application/xml");
-
-
-                Log.v("aha", "wirkloch12");
-                Log.v("vorher",urlConnection.getResponseMessage());
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                Log.v("aha", "wirkloch13");
                 String test = readStream(in);
 
                 fetch_from_xml mytest = new fetch_from_xml();
-              String eva = mytest.getelement(test);
+                String eva = mytest.getelement(test);
                 Log.e("ahaneu",test);
                 return eva;
             }catch(Exception e)
@@ -187,7 +182,7 @@ for(int j=0; j < listzug.getLength(); j++)
             finally {
             }
 
-            return "done";
+            return "";
         }
 
         @Override
@@ -201,30 +196,69 @@ for(int j=0; j < listzug.getLength(); j++)
         @Override
         protected String doInBackground(String[] params) {
             // do above Server call here
-            Log.v("aha", "wirkloch");
-
+            java.util.List<java.util.Map.Entry<String, Zuglauf>> pairList = null;
             try {
-                Log.v("aha", "wirkloch10");
-               // URL url = new URL("https://api.deutschebahn.com/timetables/v1/fchg/8000667");
-                URL url = new URL("https://api.deutschebahn.com/timetables/v1/plan/"+params[0]+"/171007/15");
+                Date dt = new Date();
+
+                SimpleDateFormat df1 = new SimpleDateFormat( "YYMMdd" );
+                Log.v("Datum",df1.format( dt ));
+                SimpleDateFormat df2 = new SimpleDateFormat( "HH" );
+                Log.v("Datum",df2.format( dt ));
 
 
-                Log.v("aha", "wirkloch11");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Authorization", "Bearer 9c3f51196a91fe8c98fb8536f3733c4c");
-                urlConnection.setRequestProperty("Accept", "application/xml");
+             //   String sourceDate = "2012-02-29 21";
+              //  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH");
+               // Date myDate = format.parse(sourceDate);
+//                Calendar c = Calendar.getInstance();
+  //              c.setTime(dt);
+
+    //            int i=0;
+      //          while (i < 24)
+        //        {
+          //          c.add(Calendar.HOUR, 1);
+            //        myDate=c.getTime();
+              //      System.out.println(format.format(myDate));
+                //    ++i;
+               // }
 
 
-                Log.v("aha", "wirkloch12");
-                Log.v("vorher",urlConnection.getResponseMessage());
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                Log.v("aha", "wirkloch13abc");
-                String test = readStream(in);
-                fetch_from_xml mytest = new fetch_from_xml();
-                java.util.List<java.util.Map.Entry<String,Zuglauf>> pairList=mytest.getdestinationfromplan(test);
-                Log.e("ahaneu",pairList.toString());
 
-                return test;
+
+                int inc = 0;
+                int found =0;
+                String test="";
+                Calendar c = Calendar.getInstance();
+                             c.setTime(dt);
+                while ((inc < 24 ) && (found == 0))
+                {
+                    URL url = new URL("https://api.deutschebahn.com/timetables/v1/plan/" + params[0] + "/" + df1.format(dt) + "/" + df2.format(dt));
+
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setRequestProperty("Authorization", "Bearer 9c3f51196a91fe8c98fb8536f3733c4c");
+                    urlConnection.setRequestProperty("Accept", "application/xml");
+
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    test = readStream(in);
+                    fetch_from_xml mytest = new fetch_from_xml();
+                    pairList = mytest.getdestinationfromplan(test);
+                    if (pairList.size()>0)
+                    {
+                        found = 1;
+                    }
+                    else {
+                        inc++;
+                        c.add(Calendar.HOUR, 1);
+                        dt=c.getTime();
+                    }
+                    Log.e("ahaneu", pairList.toString());
+                }
+
+                if (pairList != null && pairList.size()>0)
+                {
+                    //now check the changed plan
+                }
+
+                return "";
             }catch(Exception e)
             {
                 Log.v("ecp",e.toString());
@@ -320,16 +354,18 @@ for(int j=0; j < listzug.getLength(); j++)
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-                String res= null;
-                try {
-                    res = new requesttimetable().execute(Station).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+                if (Station != "") {
+                    String res = null;
+                    try {
+                        res = new requesttimetable().execute(Station).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    Log.v("aha", "wirkloch1");
+                    Log.v("final", res);
                 }
-                Log.v("aha", "wirkloch1");
-                Log.v("final",res);
             }
         });
 
