@@ -26,6 +26,8 @@ import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.xpath.XPath;
@@ -191,12 +193,127 @@ for(int j=0; j < listzug.getLength(); j++)
         }
     }
 
+
+    private class requestchanges extends AsyncTask<Object, Void, String> {
+
+        java.util.List<java.util.Map.Entry<String, Zuglauf>> regularplan = null;
+
+        @Override
+        protected String doInBackground(Object[] params) {
+            // do above Server call here
+            regularplan= (List<Map.Entry<String, Zuglauf>>) params[1];
+            Log.v("aha", "wirkloch");
+            java.util.List<java.util.Map.Entry<String, Zuglauf>> pairList = null;
+            try {
+                Log.v("aha", "wirkloch10");
+                // URL url = new URL("https://api.deutschebahn.com/timetables/v1/fchg/8000667");
+                URL url = new URL("https://api.deutschebahn.com/timetables/v1/fchg/"+params[0]);
+
+
+                Log.v("aha", "wirkloch11");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("Authorization", "Bearer 9c3f51196a91fe8c98fb8536f3733c4c");
+                urlConnection.setRequestProperty("Accept", "application/xml");
+
+
+                Log.v("aha", "wirkloch12");
+                Log.v("vorher",urlConnection.getResponseMessage());
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                Log.v("aha", "wirkloch13");
+                String test = readStream(in);
+
+
+
+                Log.e("ahaneu",test);
+
+                fetch_from_xml mytest = new fetch_from_xml();
+
+                correct_static_list(regularplan,test);
+
+
+                pairList = mytest.getdestinationfromplan(test);
+Log.v("number of changes found", String.valueOf(pairList.size()));
+for(int i=0; i < pairList.size();i++)
+{
+    Log.e("ausgabe",pairList.get(i).getValue().Zugnummer);
+    Log.e("ausgabe",pairList.get(i).getValue().Abfahrt);
+    Log.e("ausgabe key",pairList.get(i).getKey());
+}
+
+                return test;
+            }catch(Exception e)
+            {
+                Log.v("ecp",e.toString());
+                String test = e.getMessage();
+                if (test != null)
+                    Log.v("aha", e.getMessage());
+                else
+                    Log.v("aha", "is null");
+
+            }
+            finally {
+            }
+
+            return "done";
+        }
+
+        private void correct_static_list(java.util.List<java.util.Map.Entry<String,Zuglauf>> regularplan, String xml) {
+            for(int i=0; i < regularplan.size();i++)
+            {
+                NodeList shows=null;
+                Log.v("correctlist",regularplan.get(i).getKey() );
+                XPathFactory factory = XPathFactory.newInstance();
+                Log.v("aha", "parse2");
+                XPath xPath = factory.newXPath();
+                Log.v("aha", "parse3");
+                try {
+
+
+                    shows = (NodeList) xPath.evaluate("/timetable/s", new InputSource(new StringReader(xml)), XPathConstants.NODESET);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                    Log.v("aha", "parse4");
+                for (int j = 0; j < shows.getLength(); j++) {
+                    Element show = (Element) shows.item(j);
+                    String id = show.getAttribute("id");
+                    Log.v("id inner",id);
+if (id.equals(regularplan.get(i).getKey()))
+{
+    Log.v("Found match",id);
+    NodeList dp= show.getElementsByTagName("dp");
+    for (int k=0; k <dp.getLength();k++)
+    {
+        String newdepart=((Element) dp.item(k)).getAttribute("ct");
+        Log.v("newdepart",newdepart);
+
+    }
+}
+
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String message) {
+            //process message
+            Log.v("after changes","after changes");
+        }
+
+    }
+
+
     private class requesttimetable extends AsyncTask<String, Void, String> {
 
+        private String Station;
+        java.util.List<java.util.Map.Entry<String, Zuglauf>> pairList = null;
         @Override
         protected String doInBackground(String[] params) {
             // do above Server call here
-            java.util.List<java.util.Map.Entry<String, Zuglauf>> pairList = null;
+            Station=params[0];
+
             try {
                 Date dt = new Date();
 
@@ -255,8 +372,11 @@ for(int j=0; j < listzug.getLength(); j++)
 
                 if (pairList != null && pairList.size()>0)
                 {
-                    //now check the changed plan
+
                 }
+
+                for(int i=0; i < pairList.size();i++)
+                    Log.v("id regulaer",pairList.get(i).getKey());
 
                 return "";
             }catch(Exception e)
@@ -278,57 +398,16 @@ for(int j=0; j < listzug.getLength(); j++)
         @Override
         protected void onPostExecute(String message) {
             //process message
-        }
-    }
-
-    private class requestchanges extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String[] params) {
-            // do above Server call here
-            Log.v("aha", "wirkloch");
-
+            //now check the changed plan
             try {
-                Log.v("aha", "wirkloch10");
-                // URL url = new URL("https://api.deutschebahn.com/timetables/v1/fchg/8000667");
-                URL url = new URL("https://api.deutschebahn.com/timetables/v1/fchg/8002549");
-
-
-                Log.v("aha", "wirkloch11");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Authorization", "Bearer 9c3f51196a91fe8c98fb8536f3733c4c");
-                urlConnection.setRequestProperty("Accept", "application/xml");
-
-
-                Log.v("aha", "wirkloch12");
-                Log.v("vorher",urlConnection.getResponseMessage());
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                Log.v("aha", "wirkloch13");
-                String test = readStream(in);
-
-
-                Log.e("ahaneu",test);
-
-                return test;
-            }catch(Exception e)
-            {
-                Log.v("ecp",e.toString());
-                String test = e.getMessage();
-                if (test != null)
-                    Log.v("aha", e.getMessage());
-                else
-                    Log.v("aha", "is null");
-
+                Log.v("now start changes","changes");
+                String Test = new requestchanges().execute(Station,pairList).get();
+                Log.v("postexecute","postexecute");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-            finally {
-            }
-
-            return "done";
-        }
-
-        @Override
-        protected void onPostExecute(String message) {
-            //process message
         }
     }
 
@@ -364,7 +443,7 @@ for(int j=0; j < listzug.getLength(); j++)
                         e.printStackTrace();
                     }
                     Log.v("aha", "wirkloch1");
-                    Log.v("final", res);
+                    Log.e("final", res);
                 }
             }
         });
